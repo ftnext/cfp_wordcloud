@@ -8,7 +8,7 @@ from wordcloud import WordCloud
 BG_COLOR = 'white'
 FONT_FILE = 'SourceHanCodeJP-Regular.otf'
 RANDOM_SEED = 2019
-JA_STOPWORDS = ['ある', 'いる', 'する', 'できる', 'てる', 'なる', 'られる', 'れる']
+JA_STOPWORDS = ['ある', 'いる', 'する', 'できる', 'てる', 'なる', 'られる', 'れる', 'よう', 'こと', 'ため']
 
 
 def ja_tokenize(line, tokenizer):
