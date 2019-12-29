@@ -91,7 +91,8 @@ if __name__ == '__main__':
         else:
             wc = WordCloud(
                 font_path=FONT_FILE, background_color=BG_COLOR,
-                stopwords=JA_STOPWORDS, random_state=RANDOM_SEED
+                stopwords=JA_STOPWORDS, random_state=RANDOM_SEED,
+                width=800, height=400, collocations=False
             )
         wordcloud = wc.generate(text)
         image = wordcloud.to_image()
