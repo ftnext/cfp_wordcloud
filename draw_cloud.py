@@ -8,7 +8,14 @@ from wordcloud import WordCloud
 BG_COLOR = 'white'
 FONT_FILE = 'SourceHanCodeJP-Regular.otf'
 RANDOM_SEED = 2019
-JA_STOPWORDS = ['ある', 'いる', 'する', 'できる', 'てる', 'なる', 'られる', 'れる', 'よう', 'こと', 'ため']
+JA_STOPWORDS = [
+    'ある', 'いる', 'する', 'できる', 'てる', 'なる', 'られる', 'れる',
+    'よう', 'こと', 'もの', 'ところ', 'ため', 'さん', 'ちゃん', 'くん', 'そう',
+    'これ', 'それ', 'あれ', 'どれ', 'こちら', 'そちら', 'あちら', 'どちら',
+    'こんな', 'そんな', 'あんな', 'どんな', 'ここ', 'そこ', 'あそこ', 'どこ',
+    'くれる', 'やる', 'くださる', '思う', 'いただく', 'せる', 'みる', 'くる', 'いく',
+    'いただける', 'ない', 'やすい', 'いい', 'of', 'in', 'by'
+]
 
 
 def ja_tokenize(line, tokenizer):
@@ -17,7 +24,7 @@ def ja_tokenize(line, tokenizer):
     malist = tokenizer.tokenize(line)
     for tok in malist:
         ps = tok.part_of_speech.split(",")[0]
-        if ps in ['助詞', '助動詞']:
+        if ps not in ["形容詞", "動詞", "名詞", "形容動詞", "副詞"]:
             continue
         w = tok.base_form
         if w == "*" or w == "":
