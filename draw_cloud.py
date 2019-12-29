@@ -1,5 +1,6 @@
 import argparse
 from pathlib import Path
+import re
 
 from janome.tokenizer import Tokenizer
 from wordcloud import WordCloud
@@ -57,7 +58,16 @@ def ja_tokenize_file(input_file, output_file=None):
     JA_TOKENIZER = Tokenizer()
     with open(input_file, 'r', encoding='utf-8') as fin,\
             open(output_file, 'w', encoding='utf-8') as fout:
-        lines = fin.read().split("\n")
+        text = fin.read()
+        square_bracket_removed = re.sub(r'\[.+?\]', '', text)  # はてな記法の[]を削除
+        uri_removed = re.sub(  # リンクのURIを削除
+            r'https?://[\w/:%#$&?~.=+-]+', '', square_bracket_removed)
+        # code_block_pattern = '```.*```'
+        # prog = re.compile(code_block_pattern, re.MULTILINE | re.DOTALL)
+        # code_block_removed = prog.sub('', uri_removed)
+        # <div>や</blockquote>などのHTMLタグを削除
+        html_tags_removed = re.sub('</?.+?>', '', uri_removed)
+        lines = html_tags_removed.split('\n')
         for line in lines:
             tokenized = ja_tokenize(line, JA_TOKENIZER)
             tokenized_line = ' '.join(tokenized)
